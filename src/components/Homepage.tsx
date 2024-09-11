@@ -3,19 +3,27 @@
 import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import ClipLoader from "react-spinners/ClipLoader";
+import Input from "./WeatherPage/Input";
 
 type Props = {};
 
 const Homepage = (props: Props) => {
-    const router = useRouter();
+  const router = useRouter();
 
-const handleNavigate = () =>{
-    router.push("/weather")
-}
+  const handleNavigate = () => {
+    router.push("/weather");
+  };
   return (
     <div className=" w-full h-screen overflow-auto">
       <div className="flex justify-center items-center mx-auto gap-2.5 p-2.5 mt-4 w-1/3">
-        {/* <Image className="w-auto h-auto" src="/images/logo.png" alt="logo" /> */}
+        <Image
+          className="w-auto h-auto"
+          width={100}
+          height={100}
+          src="/images/logo.png"
+          alt="logo"
+        />
         <h1 className="text-2xl font-bold text-gray-100 leading-7">
           TypeWeather
         </h1>
@@ -24,20 +32,10 @@ const handleNavigate = () =>{
         <h1 className="text-lg text-blue-200  font-bold">
           Welcome to TypeWeather
         </h1>
-        <p className="text-lg text-gray-400  pt-2">
+        <p className="text-lg text-gray-400  pt-2 pb-14">
           Choose a location to see the weather forecast
         </p>
-        <div className="pt-14 w-full">
-          <div className="relative flex">
-            <input
-              className="text-white text-[var(--text-md-font-size)] bg-[var(--color-gray-600)] w-full rounded-lg border-none focus:outline-none px-4 py-3 h-16"
-              placeholder="Search Location"
-              required
-              type="text"
-            />
-            {/* <ClipLoader color="#8FB2F5" size={30} className="absolute top-4 right-6 pointer-events-none" /> */}
-          </div>
-        </div>
+        <Input />
         <button onClick={handleNavigate}>Next page</button>
       </div>
     </div>
