@@ -8,7 +8,7 @@ const Input = (props: Props) => {
     <div className="w-full">
       <div className="relative flex">
         <input
-          className="text-gray-400 bg-gray-600  w-full rounded-lg border-none focus:outline-none px-4 py-3 h-16"
+          className="text-gray-400 bg-[#1E1E29]  w-full rounded-lg border-none focus:outline-none px-4 py-3 h-16"
           placeholder="Search Location"
           required
           type="text"

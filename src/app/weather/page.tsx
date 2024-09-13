@@ -1,5 +1,5 @@
-import Weather from '@/components/Weather'
 import React from 'react'
+import Weather from '@/components/Weather'
 
 type Props = {}
 
