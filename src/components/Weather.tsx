@@ -6,6 +6,13 @@ import WeatherRange from "./WeatherPage/WeatherRange";
 import DayForeCast from "./WeatherPage/DayForeCast";
 import getFormattedWeatherData from "@/services/weatherServices";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+function capitalizeFirstLetter(string: string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 type Props = {};
 
 const Weather = (props: Props) => {
@@ -39,7 +46,13 @@ const Weather = (props: Props) => {
   const [weather, setWeather] = useState<WeatherData | null>(null);
 
   const getWeather = async () => {
+    const CityName = query.q ? query.q : "current location";
+    toast.info(`Fetching weather data for ${capitalizeFirstLetter(CityName)}`, {
+      autoClose: 2500,
+    });
+
     await getFormattedWeatherData({ ...query, unit }).then((data) => {
+      toast.success(`Fetched weather data for ${data.name}, ${data.country}`);
       const correctedData = {
         ...data,
         formattedLocalTime: data.formatedLocalTime,
@@ -53,7 +66,6 @@ const Weather = (props: Props) => {
     getWeather();
   }, [unit, query]);
 
-
   return (
     <div className=" flex-grow m-5 gap-4 flex  h-[95vh] ">
       {/* left panel */}
@@ -66,7 +78,7 @@ const Weather = (props: Props) => {
             src="/images/logo.png"
             alt="logo"
           />
-          <Input setQuery={setQuery} setUnit={setUnit}/>
+          <Input setQuery={setQuery} setUnit={setUnit} />
         </div>
 
         {weather && <WeatherDetails weather={weather} />}
@@ -90,6 +102,7 @@ const Weather = (props: Props) => {
           </div>
         </div>
       </div>
+      <ToastContainer autoClose={2500} hideProgressBar={true} theme="colored" />
     </div>
   );
 };

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 type Props = {
@@ -43,10 +44,10 @@ const WeatherDetails = ({ weather }: Props) => {
         <h6 className="font-bold text-white">{tempInCelsius}ºc</h6>
         <div className="flex justify-between mt-2">
           <h6 className="text-white">
-          {tempMinInCelsius}ºC / {tempMaxInCelsius}ºC
+            {tempMinInCelsius}ºC / {tempMaxInCelsius}ºC
           </h6>
           <h6 className="text-white">{description}</h6>
-          <img src={icon} alt="" />
+          <Image src={icon} alt="icon" width={100} height={100} />
         </div>
       </div>
     </div>

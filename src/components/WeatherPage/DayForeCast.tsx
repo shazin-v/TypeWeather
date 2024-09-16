@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 type Props = {
@@ -5,12 +6,12 @@ type Props = {
     temp_min: any;
     icon: any;
     temp_max: any;
-    daily: [
-      temp: number,
-      title: string,
-      icon: string,
-      date: string // Date for the forecast
-    ];
+    daily: Array<{
+      temp: number;
+      title: string;
+      icon: string;
+      date: string; // Date for the forecast
+    }>;
   };
 };
 const kelvinToCelsius = (kelvin: number) => (kelvin - 273.15).toFixed(1);
@@ -39,7 +40,7 @@ const DayForeCast = ({ weather }: Props) => {
       {daily.map((day, index) => (
         <div key={index} className="bg-slate">
           <p>{getDayLabel(day.date, index)}</p> {/* Use getDayLabel function */}
-          <img src={day.icon} alt="Weather icon" />
+          <Image src={day.icon} alt="Weather icon" width={100} height={100} />
           <p>temperature</p>
           <p>{kelvinToCelsius(day.temp)}ºC</p>
         </div>

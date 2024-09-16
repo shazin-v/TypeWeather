@@ -33,6 +33,7 @@ const WeatherRange = ({ weather }: Props) => {
   const feelsLikeCelsius = (feels_like - 273.15).toFixed(1);
 
   const weatherrangedetails = [
+    // TODO: visibility
     {
       id: 1,
       Icon: MdOutlineVisibility,
