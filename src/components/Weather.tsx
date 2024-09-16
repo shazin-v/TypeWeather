@@ -5,43 +5,15 @@ import WeatherDetails from "./WeatherPage/WeatherDetails";
 import WeatherRange from "./WeatherPage/WeatherRange";
 import DayForeCast from "./WeatherPage/DayForeCast";
 import getFormattedWeatherData from "@/services/weatherServices";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-function capitalizeFirstLetter(string: string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
+import { capitalizeFirstLetter } from "@/utils/utils";
+import { WeatherData } from "@/types/types";
 
 type Props = {};
 
 const Weather = (props: Props) => {
-  const [query, setQuery] = useState({ q: "iwaki" });
-  const [unit, setUnit] = useState("metric");
-  interface WeatherData {
-    hourly: any;
-    daily: any;
-    temp: any;
-    feels_like: any;
-    temp_min: any;
-    temp_max: any;
-    pressure: any;
-    humidity: any;
-    name: any;
-    country: any;
-    sunrise: any;
-    sunset: any;
-    details: any;
-    description: string;
-    icon: string;
-    speed: any;
-    visibility: number;
-    formattedLocalTime: number;
-    dt: any;
-    timezone: any;
-    lat: any;
-    lon: any;
-  }
+  const [query, setQuery] = useState({ q: "kochi" });
 
   const [weather, setWeather] = useState<WeatherData | null>(null);
 
@@ -51,7 +23,7 @@ const Weather = (props: Props) => {
       autoClose: 2500,
     });
 
-    await getFormattedWeatherData({ ...query, unit }).then((data) => {
+    await getFormattedWeatherData({ ...query }).then((data) => {
       toast.success(`Fetched weather data for ${data.name}, ${data.country}`);
       const correctedData = {
         ...data,
@@ -64,7 +36,7 @@ const Weather = (props: Props) => {
 
   useEffect(() => {
     getWeather();
-  }, [unit, query]);
+  }, [query]);
 
   return (
     <div className=" flex-grow m-5 gap-4 flex  h-[95vh] ">
@@ -78,7 +50,7 @@ const Weather = (props: Props) => {
             src="/images/logo.png"
             alt="logo"
           />
-          <Input setQuery={setQuery} setUnit={setUnit} />
+          <Input setQuery={setQuery} />
         </div>
 
         {weather && <WeatherDetails weather={weather} />}

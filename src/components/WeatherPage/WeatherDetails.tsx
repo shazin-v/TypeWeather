@@ -1,20 +1,12 @@
 import Image from "next/image";
 import React from "react";
+import { kelvinToCelsius } from "@/utils/utils";
+import { WeatherData } from "@/types/types";
 
 type Props = {
-  weather: {
-    formattedLocalTime: number;
-    name: string;
-    country: string;
-    temp: number;
-    temp_max: number;
-    description: string;
-    temp_min: number;
-    icon: any;
-  };
+  weather: WeatherData;
 };
 
-const kelvinToCelsius = (kelvin: number) => (kelvin - 273.15).toFixed(1);
 const WeatherDetails = ({ weather }: Props) => {
   const {
     formattedLocalTime,
@@ -26,9 +18,6 @@ const WeatherDetails = ({ weather }: Props) => {
     country,
     icon,
   } = weather;
-  const tempMinInCelsius = kelvinToCelsius(temp_min);
-  const tempMaxInCelsius = kelvinToCelsius(temp_max);
-  const tempInCelsius = kelvinToCelsius(temp);
   return (
     // TODO
     <div className="relative bg-[url('/images/image.png')] bg-cover bg-no-repeat h-[600px] p-4">
@@ -41,10 +30,10 @@ const WeatherDetails = ({ weather }: Props) => {
       <div className="flex-grow"></div>
 
       <div className="flex flex-col justify-end  p-4">
-        <h6 className="font-bold text-white">{tempInCelsius}ºc</h6>
+        <h6 className="font-bold text-white">{kelvinToCelsius(temp)}ºc</h6>
         <div className="flex justify-between mt-2">
           <h6 className="text-white">
-            {tempMinInCelsius}ºC / {tempMaxInCelsius}ºC
+            {kelvinToCelsius(temp_min)}ºC / {kelvinToCelsius(temp_max)}ºC
           </h6>
           <h6 className="text-white">{description}</h6>
           <Image src={icon} alt="icon" width={100} height={100} />

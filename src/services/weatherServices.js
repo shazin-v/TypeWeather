@@ -1,14 +1,20 @@
 import { DateTime } from "luxon";
 
-const API_KEY = "ec0b1fabbbd6349b9ce05f1c07a67c9e";
+const API_KEY = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
 const BASE_URL = "https://api.openweathermap.org/data/2.5/";
 
-const getWeatherData = (infoType, searchParams) => {
+const getWeatherData = async(infoType, searchParams) => {
   const url = new URL(BASE_URL + infoType);
   url.search = new URLSearchParams({ ...searchParams, appid: API_KEY });
 
-  return fetch(url).then((res) => res.json());
-};
+  try {
+    const response = await fetch(url.toString());
+    if (!response.ok) throw new Error("Failed to fetch weather data");
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }};
 
 const iconUrlFromCode = (icon) =>
   `https://openweathermap.org/img/wn/${icon}@2x.png`;
@@ -44,8 +50,6 @@ const formatCurrent = (data) => {
     humidity,
     name,
     country,
-    sunrise: formatToLocalTime(sunrise, timezone, "hh:mm:a"),
-    sunset: formatToLocalTime(sunset, timezone, "hh:mm:a"),
     details,
     icon: iconUrlFromCode(icon),
     description,
@@ -60,18 +64,6 @@ const formatCurrent = (data) => {
 };
 
 const formatForecastWeather = (sec, offset, data) => {
-  // hourly forecast
-  const hourly = data
-    .filter((f) => f.dt > sec)
-    .map((f) => ({
-      temp: f.main.temp,
-      title: formatToLocalTime(f.dt, offset, "hh:mm:a"),
-      icon: iconUrlFromCode(f.weather[0].icon),
-      date: f.dt_txt,
-    }))
-    .slice(0, 5);
-
-  // daily forecast
   const daily = data
     .filter((f) => f.dt_txt.slice(-8) === "00:00:00")
     .map((f) => ({
@@ -82,15 +74,17 @@ const formatForecastWeather = (sec, offset, data) => {
     }))
     .slice(0, 5);
 
-  return { hourly, daily };
+  return { daily };
 };
 
 const getFormattedWeatherData = async (searchParams) => {
-  const formatCurrentWeather = await getWeatherData("weather", searchParams).then(formatCurrent);
+  const formatCurrentWeather = await getWeatherData(
+    "weather",
+    searchParams
+  ).then(formatCurrent);
 
   const { lat, lon, dt, timezone } = formatCurrentWeather;
 
-  // Fix: Corrected function name from `formattedForecastWeather` to `formatForecastWeather`
   const formattedForecastWeather = await getWeatherData("forecast", {
     lat,
     lon,

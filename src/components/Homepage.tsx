@@ -3,14 +3,10 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import ClipLoader from "react-spinners/ClipLoader";
-import Input from "./WeatherPage/Input";
 
 type Props = {};
 
 const Homepage = (props: Props) => {
-  const [query, setQuery] = useState({ q: "iwaki" });
-  const [unit, setUnit] = useState("metric");
   const router = useRouter();
 
   const handleNavigate = () => {
@@ -37,7 +33,6 @@ const Homepage = (props: Props) => {
         <p className="text-lg text-gray-400  pt-2 pb-14">
           Choose a location to see the weather forecast
         </p>
-        <Input setQuery={setQuery} setUnit={setUnit}/>
         <button onClick={handleNavigate}>Next page</button>
       </div>
     </div>
