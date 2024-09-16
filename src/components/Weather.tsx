@@ -1,51 +1,60 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Input from "./WeatherPage/Input";
 import Image from "next/image";
 import WeatherDetails from "./WeatherPage/WeatherDetails";
 import WeatherRange from "./WeatherPage/WeatherRange";
 import DayForeCast from "./WeatherPage/DayForeCast";
+import getFormattedWeatherData from "@/services/weatherServices";
 
 type Props = {};
 
 const Weather = (props: Props) => {
+  const [query, setQuery] = useState({ q: "iwaki" });
+  const [unit, setUnit] = useState("metric");
+  interface WeatherData {
+    hourly: any;
+    daily: any;
+    temp: any;
+    feels_like: any;
+    temp_min: any;
+    temp_max: any;
+    pressure: any;
+    humidity: any;
+    name: any;
+    country: any;
+    sunrise: any;
+    sunset: any;
+    details: any;
+    description: string;
+    icon: string;
+    speed: any;
+    visibility: number;
+    formattedLocalTime: number;
+    dt: any;
+    timezone: any;
+    lat: any;
+    lon: any;
+  }
+
+  const [weather, setWeather] = useState<WeatherData | null>(null);
+
+  const getWeather = async () => {
+    await getFormattedWeatherData({ ...query, unit }).then((data) => {
+      const correctedData = {
+        ...data,
+        formattedLocalTime: data.formatedLocalTime,
+      };
+      setWeather(correctedData);
+      console.log(" correctedData:", correctedData); // Moved the console log inside the .then block
+    });
+  };
+
+  useEffect(() => {
+    getWeather();
+  }, [unit, query]);
+
+
   return (
-    // <div className="w-full p-4 m-6 bg-gray-800 rounded-lg">
-    //   <div className="flex w-1/2 justify-between mb-4">
-    //     <Image
-    //       className="w-auto h-auto bg-gray-600"
-    //       width={100}
-    //       height={100}
-    //       src="/images/logo.png"
-    //       alt="logo"
-    //     />
-    //     <Input />
-    //   </div>
-    //   {/* Grid layout for weather details and next card */}
-
-    //   <div className="grid grid-cols-1">
-    //     {/* Left column: WeatherDetails */}
-    //     <div className="flex">
-    //       <WeatherDetails />
-    //     </div>
-    //     {/* Right column: Next weather card */}
-    //     <div className="bg-gray-700 rounded-lg p-4 text-white w-1/2">
-    //       <h4 className="font-bold mb-4">Next Weather</h4>
-    //       {/* Example content for the next weather card */}
-    //       <p>Location: Rio de Janeiro, RJ</p>
-    //       <p>Temperature: 30ºC</p>
-    //       <p>Condition: Clear Sky</p>
-    //     </div>
-
-    //     <div className="bg-gray-700 rounded-lg p-4 text-white w-1/2">
-    //       <h4 className="font-bold mb-4">Next Weather</h4>
-    //       {/* Example content for the next weather card */}
-    //       <p>Location: Rio de Janeiro, RJ</p>
-    //       <p>Temperature: 30ºC</p>
-    //       <p>Condition: Clear Sky</p>
-    //     </div>
-    //   </div>
-    // </div>
-
     <div className=" flex-grow m-5 gap-4 flex  h-[95vh] ">
       {/* left panel */}
       <div className=" rounded-[24px] bg-[#16161F] p-6  flex flex-col gap-8 w-1/2">
@@ -57,10 +66,10 @@ const Weather = (props: Props) => {
             src="/images/logo.png"
             alt="logo"
           />
-          <Input />
+          <Input setQuery={setQuery} setUnit={setUnit}/>
         </div>
 
-        <WeatherDetails />
+        {weather && <WeatherDetails weather={weather} />}
       </div>
 
       {/* Right panel */}
@@ -70,18 +79,14 @@ const Weather = (props: Props) => {
           <h4 className="font-bold mb-4">Today&apos;s weather details</h4>
           {/* Example content for the next weather card */}
 
-          <WeatherRange />
+          {weather && <WeatherRange weather={weather} />}
         </div>
 
         <div className="bg-[#16161F] rounded-lg p-4 text-white">
           <h4 className="font-bold mb-4">5 day forecast</h4>
           {/* Example content for the next weather card */}
-          <div className="flex">
-            <DayForeCast />
-            <DayForeCast />
-            <DayForeCast />
-            <DayForeCast />
-            <DayForeCast />
+          <div className="flex gap-10">
+            {weather && <DayForeCast weather={weather} />}
           </div>
         </div>
       </div>

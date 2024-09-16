@@ -1,12 +1,13 @@
-import React from 'react'
-import Weather from '@/components/Weather'
+"use client";
 
-type Props = {}
+import React, { useEffect, useState } from "react";
+import Weather from "@/components/Weather";
+import getFormattedWeatherData from "@/services/weatherServices";
+
+type Props = {};
 
 const page = (props: Props) => {
-  return (
-    <Weather />
-  )
-}
+  return <Weather />;
+};
 
-export default page
+export default page;
