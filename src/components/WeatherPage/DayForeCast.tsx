@@ -10,16 +10,18 @@ type Props = {
 const DayForeCast = ({ weather }: Props) => {
   const { daily } = weather;
   return (
-    <div className="flex gap-10">
-      {daily.map((day, index) => (
-        <div key={index} className="bg-slate">
-          <p>{getDayLabel(day.date, index)}</p>
-          <Image src={day.icon} alt="Weather icon" width={100} height={100} />
-          <p>temperature</p>
-          <p>{kelvinToCelsius(day.temp)}ºC</p>
-        </div>
-      ))}
-    </div>
+    <>
+      <div className="flex gap-10">
+        {daily.map((day, index) => (
+          <div key={index} className="bg-slate">
+            <p>{getDayLabel(day.date, index)}</p>
+            <Image src={day.icon} alt="Weather icon" width={100} height={100} />
+            <p>temperature</p>
+            <p>{kelvinToCelsius(day.temp)}ºC</p>
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 

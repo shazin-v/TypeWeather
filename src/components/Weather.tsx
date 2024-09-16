@@ -39,43 +39,48 @@ const Weather = (props: Props) => {
   }, [query]);
 
   return (
-    <div className=" flex-grow m-5 gap-4 flex  h-[95vh] ">
-      {/* left panel */}
-      <div className=" rounded-[24px] bg-[#16161F] p-6  flex flex-col gap-8 w-1/2">
-        <div className="flex justify-between mb-4">
-          <Image
-            className="w-auto h-auto mr-3 bg-[#1E1E29]"
-            width={100}
-            height={50}
-            src="/images/logo.png"
-            alt="logo"
-          />
-          <Input setQuery={setQuery} />
-        </div>
-
-        {weather && <WeatherDetails weather={weather} />}
+    <>
+      <div className="flex justify-between">
+        <Image
+          className="w-auto h-auto mr-3 bg-[#1E1E29]"
+          width={100}
+          height={50}
+          src="/images/logo.png"
+          alt="logo"
+        />
+        <Input setQuery={setQuery} />
       </div>
-
-      {/* Right panel */}
-
-      <div className=" rounded-[24px] bg-[#13131A] p-6  flex flex-col gap-8 w-1/2">
-        <div className="bg-[#16161F] rounded-lg p-4 text-white">
-          <h4 className="font-bold mb-4">Today&apos;s weather details</h4>
-          {/* Example content for the next weather card */}
-
-          {weather && <WeatherRange weather={weather} />}
+      <div className=" flex-grow gap-4 flex  h-[94vh] ">
+        {/* left panel */}
+        <div className=" rounded-[24px] bg-[#16161F] p-6  flex flex-col w-1/2 h-4/5">
+          {weather && <WeatherDetails weather={weather} />}
         </div>
 
-        <div className="bg-[#16161F] rounded-lg p-4 text-white">
-          <h4 className="font-bold mb-4">5 day forecast</h4>
-          {/* Example content for the next weather card */}
-          <div className="flex gap-10">
-            {weather && <DayForeCast weather={weather} />}
+        {/* Right panel */}
+
+        <div className=" rounded-[24px] bg-[#13131A] p-6  flex flex-col gap-8 w-1/2">
+          <div className="bg-[#16161F] rounded-lg p-4 text-white">
+            <h4 className="font-bold mb-4">Today&apos;s weather details</h4>
+            {/* Example content for the next weather card */}
+
+            {weather && <WeatherRange weather={weather} />}
+          </div>
+
+          <div className="bg-[#16161F] rounded-lg p-4 text-white">
+            <h4 className="font-bold mb-4">5 day forecast</h4>
+            {/* Example content for the next weather card */}
+            <div className="flex gap-10">
+              {weather && <DayForeCast weather={weather} />}
+            </div>
           </div>
         </div>
+        <ToastContainer
+          autoClose={2500}
+          hideProgressBar={true}
+          theme="colored"
+        />
       </div>
-      <ToastContainer autoClose={2500} hideProgressBar={true} theme="colored" />
-    </div>
+    </>
   );
 };
 

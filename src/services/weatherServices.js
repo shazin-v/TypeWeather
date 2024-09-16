@@ -3,7 +3,7 @@ import { DateTime } from "luxon";
 const API_KEY = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
 const BASE_URL = "https://api.openweathermap.org/data/2.5/";
 
-const getWeatherData = async(infoType, searchParams) => {
+const getWeatherData = async (infoType, searchParams) => {
   const url = new URL(BASE_URL + infoType);
   url.search = new URLSearchParams({ ...searchParams, appid: API_KEY });
 
@@ -14,7 +14,8 @@ const getWeatherData = async(infoType, searchParams) => {
   } catch (error) {
     console.error(error);
     throw error;
-  }};
+  }
+};
 
 const iconUrlFromCode = (icon) =>
   `https://openweathermap.org/img/wn/${icon}@2x.png`;

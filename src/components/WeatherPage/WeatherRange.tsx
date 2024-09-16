@@ -45,22 +45,24 @@ const WeatherRange = ({ weather }: Props) => {
   ];
 
   return (
-    <div className="flex-col">
-      {weatherrangedetails.map(({ id, Icon, title, value }) => (
-        <div
-          key={id}
-          className="flex justify-between border-b-2 border-b-[#1C1C27]"
-        >
-          <div className="flex p-2 gap-3">
-            <Icon size={24} />
-            <p>{title}</p>
+    <>
+      <div className="flex-col">
+        {weatherrangedetails.map(({ id, Icon, title, value }) => (
+          <div
+            key={id}
+            className="flex justify-between border-b-2 border-b-[#1C1C27]"
+          >
+            <div className="flex p-2 gap-3">
+              <Icon size={24} />
+              <p>{title}</p>
+            </div>
+            <div>
+              <p>{value}</p>
+            </div>
           </div>
-          <div>
-            <p>{value}</p>
-          </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </>
   );
 };
 

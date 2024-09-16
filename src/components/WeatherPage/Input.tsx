@@ -37,28 +37,30 @@ const Input = ({ setQuery }: Props) => {
   };
 
   return (
-    <div className="w-full">
-      <div className="flex justify-center items-center gap-2">
-        <AsyncPaginate
-          placeholder="Search for city"
-          debounceTimeout={600}
-          value={search}
-          onChange={handleSearch}
-          loadOptions={loadOptions}
-        />
-        <BiSearch
-          className="cursor-pointer transition ease-out hover:scale-125"
-          size={30}
-          onClick={() => search && handleSearch(search)}
-        />
+    <>
+      <div className="w-full">
+        <div className="flex justify-center items-center gap-2">
+          <AsyncPaginate
+            placeholder="Search for city"
+            debounceTimeout={600}
+            value={search}
+            onChange={handleSearch}
+            loadOptions={loadOptions}
+          />
+          <BiSearch
+            className="cursor-pointer transition ease-out hover:scale-125"
+            size={30}
+            onClick={() => search && handleSearch(search)}
+          />
 
-        <BiCurrentLocation
-          size={30}
-          className="cursor-pointer transition ease-out hover:scale-125"
-          onClick={handleGeoLocation}
-        />
+          <BiCurrentLocation
+            size={30}
+            className="cursor-pointer transition ease-out hover:scale-125"
+            onClick={handleGeoLocation}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
