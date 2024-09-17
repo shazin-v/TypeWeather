@@ -20,11 +20,8 @@ const getWeatherData = async (infoType, searchParams) => {
 const iconUrlFromCode = (icon) =>
   `https://openweathermap.org/img/wn/${icon}@2x.png`;
 
-const formatToLocalTime = (
-  secs,
-  offset,
-  format = "cccc, dd LLL yyyy '| Local time:'hh:mm:a "
-) => DateTime.fromSeconds(secs + offset, { zone: "utc" }).toFormat(format);
+const formatToLocalTime = (secs, offset, format = "cccc, dd LLL yyyy") =>
+  DateTime.fromSeconds(secs + offset, { zone: "utc" }).toFormat(format);
 
 const formatCurrent = (data) => {
   const {
@@ -33,7 +30,7 @@ const formatCurrent = (data) => {
     visibility,
     name,
     dt,
-    sys: { country, sunrise, sunset },
+    sys: { country },
     weather,
     wind: { speed },
     timezone,
@@ -41,6 +38,7 @@ const formatCurrent = (data) => {
 
   const { main: details, icon, description } = weather[0];
   const formatedLocalTime = formatToLocalTime(dt, timezone);
+  const localTime = formatToLocalTime(dt, timezone, "hh:mm a");
 
   return {
     temp,
@@ -56,6 +54,7 @@ const formatCurrent = (data) => {
     description,
     speed,
     formatedLocalTime,
+    localTime,
     dt,
     visibility,
     timezone,

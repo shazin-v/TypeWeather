@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { BiCurrentLocation, BiSearch } from "react-icons/bi";
+import { BiCurrentLocation } from "react-icons/bi";
 import { AsyncPaginate } from "react-select-async-paginate";
+import { loadOptions } from "@/utils/utils";
+import Image from "next/image";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { loadOptions } from "@/utils/utils"; // Assuming utils.ts is in the root 'utils' folder
 
 type Props = {
   setQuery: any;
@@ -28,31 +29,78 @@ const Input = ({ setQuery }: Props) => {
           setQuery({ lat: latitude, lon: longitude });
         },
         (error) => {
-          toast.error(
-            `An unknown error occurred. Please try again: ${error.message}`
-          );
+          switch (error.code) {
+            case error.PERMISSION_DENIED:
+              toast.error("User denied the request for Geolocation.");
+              break;
+            case error.POSITION_UNAVAILABLE:
+              toast.error("Location information is unavailable.");
+              break;
+            case error.TIMEOUT:
+              toast.error("The request to get user location timed out.");
+              break;
+            default:
+              toast.error(`An unknown error occurred: ${error.message}`);
+              break;
+          }
         }
       );
+    } else {
+      toast.error("Geolocation is not supported by this browser.");
     }
   };
 
   return (
     <>
-      <div className="w-full">
+      <div className="w-full mt-7">
         <div className="flex justify-center items-center gap-2">
+          <Image
+            className="w-auto h-auto p-2 mr-3 rounded-lg bg-[#1E1E29]"
+            width={100}
+            height={100}
+            src="/images/logo.png"
+            alt="logo"
+          />
           <AsyncPaginate
             placeholder="Search for city"
+            className="w-1/2 rounded-lg outline-none"
             debounceTimeout={600}
             value={search}
             onChange={handleSearch}
             loadOptions={loadOptions}
+            styles={{
+              control: (base) => ({
+                ...base,
+                backgroundColor: "#1E1E29", // Custom background color for input
+                color: "white",
+                borderColor: "transparent", // Remove border if needed
+                "&:hover": {
+                  borderColor: "#4A4A68", // Change hover border color
+                },
+              }),
+              input: (base) => ({
+                ...base,
+                color: "white", // Input text color
+              }),
+              menu: (base) => ({
+                ...base,
+                backgroundColor: "#1E1E29", // Dropdown background color
+              }),
+              singleValue: (base) => ({
+                ...base,
+                color: "white", // Text color for the selected value
+              }),
+              placeholder: (base) => ({
+                ...base,
+                color: "#aaa", // Placeholder text color
+              }),
+              option: (base, state) => ({
+                ...base,
+                backgroundColor: state.isFocused ? "#33334D" : "#1E1E29", // Highlight focused option
+                color: "white", // Option text color
+              }),
+            }}
           />
-          <BiSearch
-            className="cursor-pointer transition ease-out hover:scale-125"
-            size={30}
-            onClick={() => search && handleSearch(search)}
-          />
-
           <BiCurrentLocation
             size={30}
             className="cursor-pointer transition ease-out hover:scale-125"

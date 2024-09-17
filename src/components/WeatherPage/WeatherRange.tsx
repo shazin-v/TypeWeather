@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
 import { MdOutlineVisibility } from "react-icons/md";
-import { FiWind } from "react-icons/fi"; // Add wind icon from react-icons
-import { BsDroplet } from "react-icons/bs"; // Humidity icon
-import { IoThermometer } from "react-icons/io5"; // Thermal sensation icon
+import { FiWind } from "react-icons/fi";
+import { BsDroplet } from "react-icons/bs";
+import { IoThermometer } from "react-icons/io5";
 import { kelvinToCelsius } from "@/utils/utils";
 import { WeatherData } from "@/types/types";
 
@@ -13,11 +13,9 @@ type Props = {
 
 const WeatherRange = ({ weather }: Props) => {
   const { speed, humidity, feels_like, visibility } = weather;
-
-  const visibilityKm = (visibility / 1000).toFixed(1);
+  const visibilityKm = (visibility / 1000).toFixed();
 
   const weatherrangedetails = [
-    // TODO: visibility
     {
       id: 1,
       Icon: MdOutlineVisibility,
@@ -50,14 +48,14 @@ const WeatherRange = ({ weather }: Props) => {
         {weatherrangedetails.map(({ id, Icon, title, value }) => (
           <div
             key={id}
-            className="flex justify-between border-b-2 border-b-[#1C1C27]"
+            className="flex justify-between border-b-2 border-b-[#1C1C27] p-2"
           >
             <div className="flex p-2 gap-3">
               <Icon size={24} />
-              <p>{title}</p>
+              <p className="text-[#BFBFD4]">{title}</p>
             </div>
             <div>
-              <p>{value}</p>
+              <p className="text-white">{value}</p>
             </div>
           </div>
         ))}

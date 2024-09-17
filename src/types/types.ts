@@ -1,5 +1,3 @@
-
-// Type for weather daily forecast data
 export type DailyForecast = {
     temp: number;
     title: string;
@@ -7,7 +5,6 @@ export type DailyForecast = {
     date: string;
   };
   
-  // Type for formatted weather data
   export type WeatherData = {
     temp: number;
     feels_like: number;
@@ -23,6 +20,7 @@ export type DailyForecast = {
     speed: number;
     visibility: number;
     formattedLocalTime: string;
+    localTime: string;
     dt: number;
     timezone: number;
     lat: number;
@@ -30,7 +28,6 @@ export type DailyForecast = {
     daily: DailyForecast[];
   };
   
-  // Type for search data input
   export type SearchData = {
     value: string;
     label: string;

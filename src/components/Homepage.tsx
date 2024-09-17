@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -15,7 +15,7 @@ const Homepage = (props: Props) => {
   return (
     <>
       <div className=" w-full h-screen overflow-auto">
-        <div className="flex justify-center items-center mx-auto gap-2.5 p-2.5 mt-4 w-1/3">
+        <div className="flex justify-center items-center mx-auto gap-2.5 p-2.5 mt-10">
           <Image
             className="w-auto h-auto"
             width={100}
@@ -28,13 +28,18 @@ const Homepage = (props: Props) => {
           </h1>
         </div>
         <div className="w-[504px] flex flex-col justify-center items-center mx-auto mt-40">
-          <h1 className="text-lg text-blue-200  font-bold">
+          <h1 className="text-4xl text-[#8FB2F5]  font-bold">
             Welcome to TypeWeather
           </h1>
-          <p className="text-lg text-gray-400  pt-2 pb-14">
+          <p className="text-xl text-[#BFBFD4]  pt-5 pb-14">
             Choose a location to see the weather forecast
           </p>
-          <button onClick={handleNavigate}>Get Started</button>
+          <button
+            className="p-3 rounded-full bg-[#8FB2F5] text-black cursor-pointer transition ease-out hover:scale-125"
+            onClick={handleNavigate}
+          >
+            Get Started
+          </button>
         </div>
       </div>
     </>

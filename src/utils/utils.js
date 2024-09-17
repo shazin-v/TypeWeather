@@ -1,20 +1,17 @@
-export const kelvinToCelsius = (kelvin) => (kelvin - 273.15).toFixed(1);
+export const kelvinToCelsius = (kelvin) => (kelvin - 273.15).toFixed();
 
-// Function to get "Today", "Tomorrow", or the actual day name (like "Monday")
 export const getDayLabel = (dateString, index) => {
-  const forecastDate = new Date(dateString); // Convert forecast date string to Date object
-  const today = new Date(); // Get today's date
+  const forecastDate = new Date(dateString);
+  const today = new Date();
   const tomorrow = new Date();
-  tomorrow.setDate(today.getDate() + 1); // Set tomorrow's date
+  tomorrow.setDate(today.getDate() + 1);
 
-  if (index === 0) return "Today"; // For the first item, label it "Today"
-  if (index === 1) return "Tomorrow"; // For the second item, label it "Tomorrow"
+  if (index === 0) return "Today";
+  if (index === 1) return "Tomorrow";
 
-  // If it's not today or tomorrow, return the day of the week
   return forecastDate.toLocaleDateString("en-US", { weekday: "long" });
 };
 
-// Load options from the GeoDB Cities API
 export const loadOptions = async (inputValue) => {
   try {
     const response = await fetch(
@@ -22,7 +19,7 @@ export const loadOptions = async (inputValue) => {
       {
         method: "GET",
         headers: {
-          "X-RapidAPI-Key": process.env.NEXT_PUBLIC_GEO_API_KEY, // Ensure this is correctly set in .env.local
+          "X-RapidAPI-Key": process.env.NEXT_PUBLIC_GEO_API_KEY,
           "X-RapidAPI-Host": "wft-geo-db.p.rapidapi.com",
         },
       }
@@ -43,3 +40,15 @@ export const loadOptions = async (inputValue) => {
 export function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+export const getWeatherBackground = (details) => {
+  const lowerDescription = details.toLowerCase();
+
+  if (lowerDescription.includes("clear")) return "/images/clear.gif";
+  if (lowerDescription.includes("clouds")) return "/images/clouds.gif";
+  if (lowerDescription.includes("rain")) return "/images/rain.gif";
+  if (lowerDescription.includes("storm")) return "/images/thunderstorm.gif";
+  if (lowerDescription.includes("snow")) return "/images/snow.gif";
+
+  return "/images/image.png";
+};
