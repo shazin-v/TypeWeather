@@ -30,7 +30,7 @@ const Weather = (props: Props) => {
       };
       setWeather(correctedData);
     } catch (error) {
-      toast.error(`Failed to fetch weather data: ${error}`);
+      // toast.error(`Failed to fetch weather data: ${error}`);
     }
   }, [query]);
 

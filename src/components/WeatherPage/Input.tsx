@@ -52,9 +52,9 @@ const Input = ({ setQuery }: Props) => {
     }
   };
 
-  const handleNavigation = () =>{
-    router.push("/")
-  }
+  const handleNavigation = () => {
+    router.push("/");
+  };
 
   return (
     <>
