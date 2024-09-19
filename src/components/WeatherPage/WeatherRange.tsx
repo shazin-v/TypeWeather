@@ -51,11 +51,13 @@ const WeatherRange = ({ weather }: Props) => {
             className="flex justify-between border-b-2 border-b-[#1C1C27] p-2"
           >
             <div className="flex p-2 gap-3">
-              <Icon size={24} />
-              <p className="text-[#BFBFD4]">{title}</p>
+              <Icon size={24} className=" max-md:size-5" />
+              <p className="text-[#BFBFD4]  max-md:text-sm">{title}</p>
             </div>
-            <div>
-              <p className="text-white">{value}</p>
+            <div className="my-auto">
+              <p className="text-white items-center max-md:text-sm max-md:font-semibold">
+                {value}
+              </p>
             </div>
           </div>
         ))}

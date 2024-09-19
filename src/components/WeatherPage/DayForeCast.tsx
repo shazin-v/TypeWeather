@@ -11,7 +11,7 @@ const DayForeCast = ({ weather }: Props) => {
   const { daily } = weather;
   return (
     <>
-      <div className="flex gap-10">
+      <div className="flex gap-10 overflow-x-auto">
         {daily.map((day, index) => (
           <div key={index} className="bg-slate text-center">
             <p className="text-[#BFBFD4]">{getDayLabel(day.date, index)}</p>

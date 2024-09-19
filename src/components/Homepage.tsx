@@ -14,8 +14,8 @@ const Homepage = (props: Props) => {
   };
   return (
     <>
-      <div className=" w-full h-screen overflow-auto">
-        <div className="flex justify-center items-center mx-auto gap-2.5 p-2.5 mt-10">
+      <div className="overflow-auto flex flex-col pb-20">
+        <div className="flex justify-center items-center mx-auto gap-2.5 p-2.5 mt-10 ">
           <Image
             className="w-auto h-auto"
             width={100}
@@ -27,11 +27,11 @@ const Homepage = (props: Props) => {
             TypeWeather
           </h1>
         </div>
-        <div className="w-[504px] flex flex-col justify-center items-center mx-auto mt-40">
-          <h1 className="text-4xl text-[#8FB2F5]  font-bold">
+        <div className="flex flex-col justify-center items-center mx-auto mt-40 max-sm:text-center flex-wrap">
+          <h1 className="text-4xl text-[#8FB2F5] max-sm:text-xl font-bold">
             Welcome to TypeWeather
           </h1>
-          <p className="text-xl text-[#BFBFD4]  pt-5 pb-14">
+          <p className="text-xl text-[#BFBFD4] max-sm:text-base  pt-5 pb-14">
             Choose a location to see the weather forecast
           </p>
           <button

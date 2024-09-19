@@ -35,27 +35,37 @@ const WeatherDetails = ({ weather }: Props) => {
       {/* Top Section */}
       <div className="flex justify-between p-5 backdrop-blur-lg bg-white/10">
         <div>
-          <h6 className="font-bold text-lg ">{`${name}, ${country}`}</h6>
-          <h6 className="font-light pt-4">{formattedLocalTime}</h6>
+          <h6 className="font-bold text-lg max-sm:text-base">{`${name}, ${country}`}</h6>
+          <h6 className="font-light pt-4 max-sm:text-sm">
+            {formattedLocalTime}
+          </h6>
         </div>
-        <p className="font-bold">{localTime}</p>
+        <p className="font-bold max-sm:text-base">{localTime}</p>
       </div>
 
       {/* Bottom Section */}
-      <div className="  flex justify-between items-center ">
+      <div className="  flex justify-between items-center">
         <div className="backdrop-blur-lg bg-white/10 p-5">
-          <h6 className="font-bold  text-5xl">{kelvinToCelsius(temp)}ºc</h6>
+          <h6 className="font-bold  text-5xl max-sm:text-xl">
+            {kelvinToCelsius(temp)}ºc
+          </h6>
           <div className="pt-4 flex gap-4">
-            <h6 className="font-bold">
+            <h6 className="font-bold max-sm:text-xs">
               {kelvinToCelsius(temp_min)}ºc / {kelvinToCelsius(temp_max)}ºc
             </h6>
-            <h6 className="font-normal">
+            <h6 className="font-normal max-sm:text-xs">
               {capitalizeFirstLetter(description)}
             </h6>
           </div>
         </div>
         <div>
-          <Image src={icon} alt="icon" width={200} height={200} />
+          <Image
+            src={icon}
+            alt="icon"
+            width={200}
+            height={200}
+            className="size-24 max-[450px]:hidden"
+          />
         </div>
       </div>
     </div>

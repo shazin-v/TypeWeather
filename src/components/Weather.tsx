@@ -12,7 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 type Props = {};
 
 const Weather = (props: Props) => {
-  const [query, setQuery] = useState({ q: "kochi" });
+  const [query, setQuery] = useState({ q: "" });
   const [weather, setWeather] = useState<WeatherData | null>(null);
 
   const getWeather = useCallback(async () => {
@@ -43,31 +43,43 @@ const Weather = (props: Props) => {
       <div className="flex justify-between">
         <Input setQuery={setQuery} />
       </div>
-      <div className=" flex-grow gap-4 flex m-7 ">
-        {/* left panel */}
-        <div className=" rounded-[24px] bg-[#16161F] p-6  flex flex-col w-1/2 h-4/5">
-          {weather && <WeatherDetails weather={weather} />}
-        </div>
-        {/* Right panel */}
-        <div className=" rounded-[24px] bg-[#13131A] px-6  flex flex-col gap-8 w-1/2 h-4/5">
-          <div className="bg-[#16161F] rounded-lg p-4 text-[#7F7F98]">
-            <h4 className="font-bold mb-4">Today&apos;s weather details</h4>
-            {weather && <WeatherRange weather={weather} />}
-          </div>
-          <div className="bg-[#16161F] rounded-lg p-4 text-white">
-            <h4 className="font-bold mb-4 text-[#7F7F98]">5 day forecast</h4>
-            {/* Example content for the next weather card */}
-            <div className="flex gap-10">
-              {weather && <DayForeCast weather={weather} />}
+      {weather ? (
+        <>
+          <div className="flex-grow gap-4 flex m-7 max-md:flex-col">
+            {/* Left panel */}
+            <div className="rounded-[24px] bg-[#16161F] p-6 flex flex-col w-1/2 h-4/5 max-md:w-full">
+              <WeatherDetails weather={weather} />
+            </div>
+
+            {/* Right panel */}
+            <div className="rounded-[24px] bg-[#13131A] px-6 flex flex-col gap-3 w-1/2 h-4/5 max-md:w-full">
+              <div className="bg-[#16161F] rounded-lg p-4 text-[#7F7F98] my-3">
+                <h4 className="font-bold mb-4">Today&apos;s weather details</h4>
+                <WeatherRange weather={weather} />
+              </div>
+              <div className="bg-[#16161F] rounded-lg p-4 text-white max-md:mb-2">
+                <h4 className="font-bold pb-4 text-[#7F7F98]">
+                  5 day forecast
+                </h4>
+                <div className="flex gap-10">
+                  <DayForeCast weather={weather} />
+                </div>
+              </div>
             </div>
           </div>
+          <ToastContainer
+            autoClose={2500}
+            hideProgressBar={true}
+            theme="colored"
+          />
+        </>
+      ) : (
+        <div className="flex justify-center items-center h-1/2">
+          <p className="text-3xl text-[#aaaaaa] max-md:text-center max-md:text-xl">
+            Select a country to display weather
+          </p>
         </div>
-        <ToastContainer
-          autoClose={2500}
-          hideProgressBar={true}
-          theme="colored"
-        />
-      </div>
+      )}
     </>
   );
 };

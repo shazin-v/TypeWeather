@@ -5,6 +5,7 @@ import { loadOptions } from "@/utils/utils";
 import Image from "next/image";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/navigation";
 
 type Props = {
   setQuery: any;
@@ -12,6 +13,7 @@ type Props = {
 
 const Input = ({ setQuery }: Props) => {
   const [search, setSearch] = useState(null);
+  const router = useRouter();
 
   const handleSearch = (searchData: any) => {
     setSearch(searchData);
@@ -50,20 +52,25 @@ const Input = ({ setQuery }: Props) => {
     }
   };
 
+  const handleNavigation = () =>{
+    router.push("/")
+  }
+
   return (
     <>
       <div className="w-full mt-7">
         <div className="flex justify-center items-center gap-2">
           <Image
-            className="w-auto h-auto p-2 mr-3 rounded-lg bg-[#1E1E29]"
+            className="w-auto h-auto p-3 mr-3 rounded-lg bg-[#1E1E29] max-md:ml-5 cursor-pointer"
             width={100}
             height={100}
             src="/images/logo.png"
             alt="logo"
+            onClick={handleNavigation}
           />
           <AsyncPaginate
             placeholder="Search for city"
-            className="w-1/2 rounded-lg outline-none"
+            className="w-1/2 cursor-pointer rounded-lg outline-none max-md:w-full"
             debounceTimeout={600}
             value={search}
             onChange={handleSearch}
@@ -103,7 +110,7 @@ const Input = ({ setQuery }: Props) => {
           />
           <BiCurrentLocation
             size={30}
-            className="cursor-pointer transition ease-out hover:scale-125"
+            className="cursor-pointer transition ease-out hover:scale-125 max-md:mx-5"
             onClick={handleGeoLocation}
           />
         </div>
